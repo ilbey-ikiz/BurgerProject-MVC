@@ -1,0 +1,97 @@
+﻿@using BurgerProject_MVC_G4.Models.Entites;
+@using BurgerProject_MVC_G4.Repository.Abstract;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+
+        @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
+        {
+        <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Products" asp-action="Index">Product </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Menus" asp-action="Index">Menus </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Orders" asp-action="Index">Orders </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Garnitures" asp-action="Index">Garnitures </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="Admin" asp-controller="Reports" asp-action="Index">Reports </a>
+                </li>
+
+                <li class="nav-item">
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
+                    </form>
+                </li>
+            </ul>
+
+            
+        }
+        else
+        {
+        <ul class="navbar-nav ">
+            <li class="nav-item">
+                @inject ICartRepository cartRepo;
+                @{
+                    int userActiveCarst = cartRepo.GetUserActiveCardCount(User.Identity.Name);
+                }
+                <a class="nav-link " asp-controller="Basket" asp-action="Index">
+                    <div class="d-flex">
+                        @*<img src="/ProductsImages/1224379.png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;">*@
+                        @*<img src="/BackgroundItems/" class="pl-lg-4 pr-2 " style="width:40px; height:40px;">*@
+                        <img src="/Backgrounditems/profile (2).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />
+                        <div class="ml-2 d-lg-none ms-3"></div>
+                        <div class="badge count " id="userActiveCards">@userActiveCarst</div>
+                    </div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="UserSettings" asp-action="Index" title="Manage">
+                    <img src="/Backgrounditems/profile (1).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />
+                </a>
+            </li>
+           
+            
+        </ul>
+        <div class="">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">
+                        <img src="/Backgrounditems/2074191.png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />
+                    </button>
+                </form>
+        </div>
+        }
+    }
+    else
+    {
+    <ul class="navbar-nav ">
+        <li class="nav-item">
+            <a class="nav-link " asp-controller="Account" asp-action="Login" asp-area="Identity">
+                <div class="d-flex">
+                    @*<img src="/ProductsImages/1224379.png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;">*@
+                    <img src="/Backgrounditems/profile (2).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />
+                    <div class="ml-2 d-lg-none ms-3"></div>
+                    <div class="badge  count  ">0</div>
+                </div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    </ul>
+    }
+
+

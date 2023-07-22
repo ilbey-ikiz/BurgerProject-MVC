@@ -1,0 +1,220 @@
+﻿@model MenuDetailVM
+
+
+
+<div class=" productcontainer row mt-5">
+    @{
+        int count = 0;
+    }
+    @foreach (var menu in Model.Menus)
+    {
+        count++;
+        string ModalProduct = "ModalProduct" + count;
+        <div class=" col-lg-4 col-md-4">
+            <a data-bs-toggle="modal" data-bs-target="#@ModalProduct">
+                <div class="productcard ">
+                    <div class="productcard-image">
+                        <img src="/MenuImages/@menu.CoverImage">
+                    </div>
+                    <div class="productcard-text">
+                        <h2 class="productcard-title">@menu.MenuName</h2>
+                    </div>
+                    <div class="productcard-price">$@menu.SmallPrice</div>
+                </div>
+            </a>
+        </div>
+
+                // Modal Yapissi
+
+        <div class="modal fade" id="@ModalProduct" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalCenterTitle"><strong>Add New Product</strong></h1>
+                        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="px-0">
+                        <form asp-action="List" method="post">
+                            <div class="modal-body">
+
+                                @* Product Detail Icerigi*@
+                                <div class="container">
+                                    <section class="mx-auto my-5" style="max-width: 32rem;">
+
+                                        <div class="card">
+                                            <div class="bg-image hover-overlay ripple card-body" data-mdb-ripple-color="light">
+                                                <img src="/MenuImages/@menu.CoverImage" class="img-fluid" />
+
+                                                <a href="#!">
+                                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                                </a>
+                                            </div>
+                                            <div class="card-body">
+                                                <h2 class="card-title font-weight-bold text-center text-danger"><a>@menu.MenuName</a></h2>
+                                                <div class="text-center my-4">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" checked type="radio" name="Price" id="inlineRadio1" value="@menu.SmallPrice">
+                                                        <label class="form-check-label" for="inlineRadio1">S:$@menu.SmallPrice</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="Price" id="inlineRadio2" value="@menu.MiddlePrice">
+                                                        <label class="form-check-label" for="inlineRadio2">M:$@menu.MiddlePrice</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="Price" id="inlineRadio3" value="@menu.BigPrice">
+                                                        <label class="form-check-label" for="inlineRadio3">B:$@menu.BigPrice</label>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    @{
+                                                        string burger = "";
+                                                        @foreach (var burgers in menu.Products)
+                                                        {
+                                                            if (burgers.CategoryID == 1)
+                                                            {
+                                                                burger += burgers.ProductName + "  ";
+
+                                                                <input type="text" hidden="hidden" value="@burgers.ProductID" name="BurgerID" />
+
+                                                            }
+                                                        }
+
+                                                        <h5 class="text-center">Burgers : @burger</h5>
+                                                    }
+                                                </div>
+
+                                                <div>
+                                                    @{
+                                                        string extras = "";
+                                                        @foreach (var extra in menu.Products)
+                                                        {
+                                                            if (extra.CategoryID == 5)
+                                                            {
+                                                                extras += extra.ProductName + "  ";
+                                                                <hidden>
+                                                                    <input type="text" hidden="hidden" value="@extra.ProductID" name="ExtraID" />
+                                                                </hidden>
+                                                            }
+                                                        }
+
+                                                        <hidden>
+                                                            <input type="text" hidden="hidden" value="@menu.MenuID" name="MenuID" />
+                                                        </hidden>
+
+                                                        <h5 class="text-center">Extras : @extras</h5>
+                                                    }
+                                                </div>
+                                                <div class="text-center">
+                                                    @{
+                                                        int count2 = 0;
+                                                    }
+
+                                                    <div class="btn-group w-75 h-25 bg-gradient row " role="group" aria-label="Basic checkbox toggle button group">
+
+                                                        <label>1.Sauce:</label>
+                                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="Sauce1">
+                                                            @foreach (var sauce in Model.Sauces)
+                                                            {
+                                                                <option value="@sauce.ProductID">@sauce.ProductName</option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="btn-group w-75 h-25 bg-gradient row " role="group" aria-label="Basic checkbox toggle button group">
+
+                                                        <label>2.Sauce:</label>
+                                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="Sauce2">
+                                                            @foreach (var sauce in Model.Sauces)
+                                                            {
+                                                                <option value="@sauce.ProductID">@sauce.ProductName</option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="btn-group w-75 h-25 bg-gradient row " role="group" aria-label="Basic checkbox toggle button group">
+
+                                                        <label>Beverages</label>
+                                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="BeverageID">
+                                                            @foreach (var beverages in Model.Beverages)
+                                                            {
+                                                                <option value="@beverages.ProductID">@beverages.ProductName</option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="btn-group w-75 h-25 bg-gradient row " role="group" aria-label="Basic checkbox toggle button group">
+
+                                                        <label>Potatoes</label>
+                                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="PotatoID">
+                                                            @foreach (var potatoes in Model.Potatoes)
+                                                            {
+                                                                <option value="@potatoes.ProductID">@potatoes.ProductName</option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+
+
+
+
+
+                                                    @*       <div class="btn-group w-75 h-25 bg-gradient row " role="group" aria-label="Basic checkbox toggle button group">
+                                                @foreach (var garniture in Model.Sauces)
+                                                {
+                                                count2++;
+                                                bool isSelected = product.Garnitures.Any(s => s.GarnitureID == garniture.GarnitureID);
+
+                                                string btnid = $"{product.ProductName}" + count2;
+                                                <div class="col-md-4 col-lg-4 col-sm-4  ">
+                                                @if (isSelected)
+                                                {
+                                                <input type="checkbox" checked="checked" class="btn-check" id="@btnid" name="selectedProducts" value="@garniture.GarnitureID" autocomplete="off">
+                                                <label class="btn btn-outline-warning m-2" for="@btnid">@garniture.GarnitureName</label>
+                                                }
+                                                else
+                                                {
+                                                <input type="checkbox" class="btn-check" id="@btnid" name="selectedProducts" value="@garniture.GarnitureID" autocomplete="off">
+                                                <label class="btn btn-outline-warning m-2" for="@btnid">@garniture.GarnitureName</label>
+                                                }
+
+                                                </div>
+                                                }
+                                                </div>*@
+                                                </div>
+                                                <div class="text-center mb-4">
+                                                    <label class="fs-5">Quantity:</label>
+                                                    <input type="number" value="1" class="w-25" name="quantity" />
+
+                                                </div>
+
+                                                <div class="modal-footer justify-content-between">
+
+                                                    <button type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cancel</button>
+                                                    <input type="submit" class="btn btn-success text-white" value="Add Basket" asp-action="AddMenuAsCard" asp-controller="Product" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </section>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    }
+</div>
+
+
+

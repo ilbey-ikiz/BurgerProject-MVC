@@ -1,0 +1,37 @@
+﻿@model BurgerProject_MVC_G4.Models.Entites.Garniture
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <h1 class="text-center">Create Garniture</h1>
+    <hr />
+    <div class="row  d-flex justify-content-center">
+        <div class="col-md-4  bg-light rounded">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="GarnitureName" class="control-label mb-2"></label>
+                    <input asp-for="GarnitureName" class="form-control" />
+                    <span asp-validation-for="GarnitureName" class="text-danger"></span>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between mt-2 mb-4">
+                    <div>
+                        <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+                    </div>
+                    <div>
+                        <input type="submit" value="Add Menu" class="btn btn-outline-success" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,37 @@
+﻿@model AppUser
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+
+<h2 class="text-center" style="font-family: 'Bebas Neue', sans-serif;">Your Addresses</h2>
+<div class="form-outline mb-4">
+        @{int count = 1;}
+    @foreach (var item in Model.Addresses)
+    {
+        <div class="d-flex justify-content-between" id="myDiv-@item.AddressID">
+            <div>
+                <label class="form-label" for="form7example7" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold;">Address @count:</label>
+            </div>
+            <div>
+                <a  onclick="EditAddress('@item.AddressID')"  ><img src="/ProductsImages/668310.png" style="height:20px; cursor:pointer;"></a>
+                <a onclick="DeleteAddress('@item.AddressID')" ><img src="/ProductsImages/3311484.png" style="height:20px; cursor:pointer;"></a>
+            </div>
+        </div>
+        <textarea class="form-control" class="text-center" style="font-family: 'Bebas Neue', sans-serif;" id="myAddress-@item.AddressID" onblur="FocusChange('@item.AddressID')" rows="4" readonly>@item.AddressDescription</textarea>
+        count++;
+    }
+</div>
+<label class="form-label" for="form7example7" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold;">Add New Address</label>
+<div class="form-group">
+    <textarea class="form-control" rows="4" id="newAddress"></textarea>
+</div>
+<div class="text-center mt-3 ">
+    <button type="button" class="btn btn-dark" onclick="saveChanges(@Model.Id)">Save changes</button>&nbsp;
+    <button type="button" class="btn btn-default">Cancel</button>
+</div>
+
+
+<script src="~/js/useraddress.js"></script>

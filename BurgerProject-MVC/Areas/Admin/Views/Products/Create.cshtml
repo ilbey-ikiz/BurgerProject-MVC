@@ -1,0 +1,57 @@
+﻿@model BurgerProject_MVC_G4.Models.Entites.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+    <h1 class="text-center">Create Product</h1>
+    <hr />
+    <div class="row  d-flex justify-content-center">
+        <div class="col-md-4 bg-light rounded">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mt-3">
+                    <label asp-for="ProductName" class="control-label"></label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoverImage" class="control-label"></label>
+                    <input asp-for="CoverImage" class="form-control" type="hidden" value="empty.jpg" />
+                    <input class="form-control" type="file" name="ImageName" accept=".jpg,.png" />
+                    <span asp-validation-for="CoverImage" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">CategoryName</label>
+                    <select asp-for="CategoryID" class="form-control" id="categorySelect" asp-items="ViewBag.CategoryID" onchange="GetGarnitureList()"></select>
+                </div>
+                <div id="garnitureList">
+                    <label class="control-label">Garnitures</label>
+                    <select name="garnitures" multiple class="form-control" id="categorySelect" asp-items="@ViewBag.Garnitures"></select>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between mt-2 mb-4">
+                    <div>
+                        <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+                    </div>
+                    <div>
+                        <input type="submit" value="Save Chenges" class="btn btn-outline-success" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

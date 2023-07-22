@@ -1,0 +1,294 @@
+﻿@model (ICollection<Cart> userMenus, ICollection<Cart> userProducts )
+@*<form asp-action="Checkout" method="get">
+
+    <section class="pt-5 pb-5">
+        <div class="container">
+            <div class="row w-100">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <h3 class="display-5 mb-2 text-center text-danger fw-bold">Shopping Cart</h3>
+                    <p class="mb-5 text-center">
+                        <h4 class="text-info font-weight-bold text-center">
+                            @{
+                                decimal totalPrice = 0;
+                                int totalItems = @Model.userMenus.Count() + @Model.userProducts.Count();
+                            } @totalItems Items in your cart
+                        </h4>
+                    </p>
+                    @if (Model.userMenus.Count() > 0)
+                    {
+                        <h5 class="text-center text-decoration-underline text-primary">Menus</h5>
+                        <table id="shoppingCart" class="table table-info table-responsive ">
+                            <thead>
+                                <tr>
+                                    <th style="width:50%">Product</th>
+                                    <th style="width:22%">Price</th>
+                                    <th style="width:10%">Quantity</th>
+                                    <th style="width:16%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var menu in Model.userMenus)
+                                {
+                                    <select name="CardMenuIdList" hidden="hidden">
+                                        <option value="@menu.CartID"></option>
+                                    </select>
+
+
+                                    totalPrice += menu.UserMenu.Amount * menu.Quantity;
+                                    <tr>
+                                        <td data-th="Product">
+
+                                            <div class="row">
+                                                <div class="col-md-3 text-left">
+                                                    <img src="/MenuImages/@menu.Menu.CoverImage" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                                </div>
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <h4>@menu.Menu.MenuName</h4>
+                                                    <p class="font-weight-light">Menu</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-th="Price">
+                                            <p class="mt-4">
+                                                @menu.UserMenu.Amount
+                                            </p>
+                                        </td>
+                                        <td data-th="Quantity">
+                                            <input type="number" style="width:60px; height:30px;" class="form-control form-control-lg text-center mt-2" value="@menu.Quantity">
+                                        </td>
+                                        <td class="actions" data-th="">
+                                            <div class="text-right ms-5 mt-3">
+                                                <a class="btn btn-white border-secondary bg-white btn-md mb-2" asp-action="DeleteCard" asp-controller="Basket" asp-route-id="@menu.CartID">
+                                                    <i class="fas fa-sync"><img style="width:20px; height:20px;" src="/ProductsImages/3311484.png"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    @if (Model.userProducts.Count() > 0)
+                    {
+                        <h5 class="text-center text-decoration-underline text-primary">Products</h5>
+                        <table id="shoppingCart" class="table table-info table-responsive">
+                            <thead>
+                                <tr>
+                                    <th style="width:50%">Product</th>
+                                    <th style="width:22%">Price</th>
+                                    <th style="width:10%">Quantity</th>
+                                    <th style="width:16%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.userProducts)
+                                {
+                                    <select name="CardMenuIdList" hidden="hidden">
+                                        <option value="@product.CartID"></option>
+                                    </select>
+
+                                    totalPrice += product.Products.Price * product.Quantity;
+                                    <tr>
+                                        <td data-th="Product">
+
+                                            <div class="row">
+                                                <div class="col-md-3 text-left">
+                                                    <img src="/MenuImages/@product.Products.CoverImage" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                                </div>
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <h4>@product.Products.ProductName</h4>
+                                                    <p class="font-weight-light">@product.Products.Category.CategoryName</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-th="Price">
+                                            <p class="mt-4">
+                                                @product.Products.Price
+                                            </p>
+                                        </td>
+                                        <td data-th="Quantity">
+                                            <input type="number" style="width:60px; height:30px;" class="form-control form-control-lg text-center mt-2" value="@product.Quantity">
+                                        </td>
+                                        <td class="actions" data-th="">
+                                            <div class="text-right ms-5 mt-3">
+                                                <a class="btn btn-white border-secondary bg-white btn-md mb-2" asp-action="DeleteCard" asp-controller="Basket" asp-route-id="@product.CartID">
+                                                    <i class="fas fa-sync"><img style="width:20px; height:20px;" src="/ProductsImages/3311484.png"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+
+                </div>
+            </div>
+            @if (totalPrice != 0)
+            {
+                <input type="text" hidden="hidden" value="@totalPrice" name="totalPrice">
+                <div class="text-end me-5">
+                    <h3>
+                        Total Price: @totalPrice
+                    </h3>
+                </div>
+                <div class="row mt-4 d-flex align-items-center ">
+                    <div class="col-sm-6 col-lg-6 order-md-2 text-right row container">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-6">
+                                <input type="submit"  class="btn btn-success mb-4 btn-lg pl-5 pr-5 w-100" value="Checkout">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                        <a asp-action="Index" asp-controller="Product">
+                            <i class="fas fa-arrow-left mr-2"><img style="width:20px;" src="/ProductsImages/1041316.png"></i> Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+</form>
+*@
+<link href="~/css/basket.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans&family=Ultra&display=swap" rel="stylesheet">
+<body class="basket">
+    <form asp-action="Checkout" method="get">
+
+        <section>
+            <div class="container mt-5 mb-5 ">
+                <div class=" asdasd d-flex justify-content-center row ">
+                    <div class="col-md-8 justify-content-center align-content-center " style="padding:20px">
+                        @*shoppingcard*@
+                        <hr style="height:2px" />
+
+                        <div style="font-family: 'Ultra', serif; color:#27244D">
+                            <h1 >S H O P P I N G    C A R T</h1>
+                        </div>
+
+                        @*shoppingcard*@
+
+                        @*car*@
+                        @{
+                            decimal totalPrice = 0;
+                            int totalItems = @Model.userMenus.Count() + @Model.userProducts.Count();
+                        } 
+                        <div class="p-2" style="font-family: 'Fira Sans', sans-serif; color:#B5C7C7">
+                            
+                        <h2>
+                                @totalItems Items in your cart
+                        </h2>
+                        </div>
+
+                       
+
+                            @if (Model.userMenus.Count() > 0)
+                            {
+                                @foreach (var menu in Model.userMenus)
+                                {
+                                    <select name="CardMenuIdList" hidden="hidden">
+                                        <option value="@menu.CartID"></option>
+                                    </select>
+
+
+                                    totalPrice += menu.UserMenu.Amount * menu.Quantity;
+
+                                <div class="d-flex flex-row justify-content-between align-items-center p-2  mt-4 px-3 rounded" style="background-color:#b4b8ad">
+
+                                        <div class="mr-1"><img src="/MenuImages/@menu.Menu.CoverImage" style="max-width:100px; max-height:100px;" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow"></div>
+                                        <div class="d-flex flex-column align-items-center product-details">
+                                            <span class="font-weight-bold">@menu.Menu.MenuName</span>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center qty">
+                                            <i class="fa fa-minus text-danger"></i>
+                                            <h5 class="text-grey mt-1 mr-1 ml-1">@menu.Quantity</h5><i class="fa fa-plus text-success"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-grey"> $@menu.UserMenu.Amount</h5>
+                                        </div>
+                                        @*çöp kutusu*@
+                                        <div class="d-flex align-items-center">
+                                            <a class="btn btn-white border-secondary bg-white btn-md mb-2" asp-action="DeleteCard" asp-controller="Basket" asp-route-id="@menu.CartID">
+                                                <i class="fas fa-sync"><img style="width:20px; height:20px;" src="/ProductsImages/3311484.png"></i>
+                                            </a>
+                                        </div>
+                                        @*çöp kutusu*@
+                                    </div>
+                                }
+                            }
+                            @if (Model.userProducts.Count() > 0)
+                            {
+                                @foreach (var menu in Model.userProducts)
+                                {
+                                    <select name="CardMenuIdList" hidden="hidden">
+                                        <option value="@menu.CartID"></option>
+                                    </select>
+
+                                    totalPrice += menu.Products.Price * menu.Quantity;
+                                <div class="d-flex flex-row justify-content-between align-items-center p-2  mt-4 px-3 rounded" style="background-color:#b4b8ad">
+
+                                        <div class="mr-1"><img src="/ProductsImages/@menu.Products.CoverImage" style="max-width:100px; max-height:100px" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow"></div>
+                                        <div class="d-flex flex-column align-items-center product-details">
+                                            <span class="font-weight-bold">@menu.Products.ProductName</span>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center qty">
+                                            <i class="fa fa-minus text-danger"></i>
+                                            <h5 class="text-grey mt-1 mr-1 ml-1">@menu.Quantity</h5><i class="fa fa-plus text-success"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-grey"> $@menu.Products.Price</h5>
+                                        </div>
+                                        @*çöp kutusu*@
+                                        <div class="d-flex align-items-center">
+                                            <a class="btn btn-white border-secondary bg-white btn-md mb-2" asp-action="DeleteCard" asp-controller="Basket" asp-route-id="@menu.CartID">
+                                                <i class="fas fa-sync"><img style="width:20px; height:20px;" src="/ProductsImages/3311484.png"></i>
+                                            </a>
+                                        </div>
+                                        @*çöp kutusu*@
+                                    </div>
+                                }
+                            }
+                        
+                        @*  <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><input type="text" class="form-control border-0 gift-card" placeholder="discount code/gift card"><button class="btn btn-outline-warning btn-sm ml-2" type="button">Apply</button></div>*@
+                        @*car*@
+                        @if (totalPrice != 0)
+                        {
+                            <input type="text" hidden="hidden" value="@totalPrice" name="totalPrice">
+                            <div class="text-end me-5" style="font-family: 'Lilita One', cursive; font-size:23px">
+                                <br><br>
+                                <h3 style=" color:#27244D">
+
+                                    Total Price: $@totalPrice
+                                </h3>
+                            </div>
+                            <div class="row mt-4 d-flex align-items-center ">
+                                <div class="col-sm-6 col-lg-6 order-md-2 text-right row container">
+                                    <div class="row">
+                                        <div class="col-md-6 offset-md-6">
+                                            <input type="submit" class="btn btn-success mb-4 btn-lg pl-5 pr-5 w-100" value="Checkout">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                                    <a asp-action="Index" asp-controller="Product">
+                                        <i class="fas fa-arrow-left mr-2"><img style="width:20px;" src="/ProductsImages/1041316.png"></i> Continue Shopping
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        <hr style="height:2px" />
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</body>

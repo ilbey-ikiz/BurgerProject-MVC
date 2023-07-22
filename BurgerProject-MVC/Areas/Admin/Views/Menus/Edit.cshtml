@@ -1,0 +1,124 @@
+﻿@model BurgerProject_MVC_G4.Models.ViewModels.MenuCreateVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <h1 class="text-center">Edit Menu</h1>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-4 bg-light rounded  ">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Menu.MenuID" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="text-center mb-3 mt-3">
+                    <img src="/MenuImages/@Model.Menu.CoverImage" width="250" height="250">
+                </div>
+                <div class="form-group ">
+                    <label asp-for="Menu.MenuName" class="control-label"></label>
+                    <input asp-for="Menu.MenuName" class="form-control" />
+                    <span asp-validation-for="Menu.MenuName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Menu.SmallPrice" class="control-label"></label>
+                    <input asp-for="Menu.SmallPrice" class="form-control" />
+                    <span asp-validation-for="Menu.SmallPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Menu.MiddlePrice" class="control-label"></label>
+                    <input asp-for="Menu.MiddlePrice" class="form-control" />
+                    <span asp-validation-for="Menu.MiddlePrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Menu.BigPrice" class="control-label"></label>
+                    <input asp-for="Menu.BigPrice" class="form-control" />
+                    <span asp-validation-for="Menu.BigPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Menu.CoverImage" class="control-label"></label>
+                    <input asp-for="Menu.CoverImage" class="form-control" type="hidden" value="empty.jpg" />
+                    <input class="form-control" type="file" name="ImageName" accept=".jpg,.png" />
+                    <span asp-validation-for="Menu.CoverImage" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Hamburgers</label>
+                    <select multiple name="IdList" class="form-control">
+
+                        @foreach (var item in Model.Hamburgers)
+                        {
+                            bool isSelected = Model.Menu.Products.Any(s => s.ProductID == item.ProductID);
+                            <option value="@item.ProductID" selected="@isSelected">@item.ProductName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Potatoes</label>
+                    <select multiple name="IdList" class="form-control">
+
+                        @foreach (var item in Model.Potatoes)
+                        {
+                            bool isSelected = Model.Menu.Products.Any(s => s.ProductID == item.ProductID);
+                            <option value="@item.ProductID" selected="@isSelected">@item.ProductName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Sauces</label>
+                    <select multiple name="IdList" class="form-control">
+
+                        @foreach (var item in Model.Sauces)
+                        {
+                            bool isSelected = Model.Menu.Products.Any(s => s.ProductID == item.ProductID);
+                            <option value="@item.ProductID" selected="@isSelected">@item.ProductName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Beverages</label>
+                    <select multiple name="IdList" class="form-control">
+
+                        @foreach (var item in Model.Beverages)
+                        {
+                            bool isSelected = Model.Menu.Products.Any(s => s.ProductID == item.ProductID);
+                            <option value="@item.ProductID" selected="@isSelected">@item.ProductName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Extras</label>
+                    <select multiple name="IdList" class="form-control">
+
+                        @foreach (var item in Model.Extras)
+                        {
+                            bool isSelected = Model.Menu.Products.Any(s => s.ProductID == item.ProductID);
+                            <option value="@item.ProductID" selected="@isSelected">@item.ProductName</option>
+                        }
+                    </select>
+                </div>
+
+                <hr />
+                <div class="d-flex justify-content-between mt-2">
+                    <div>
+                        <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+                    </div>
+                    <div>
+                        <input type="submit" value="Save Chenges" class="btn btn-outline-success" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,28 @@
+﻿@using BurgerProject_MVC_G4.Repository.Abstract;
+@model List<Menu>
+@inject IOrderRepository orderRepo
+
+<div class="container mt-5 mb-3">
+    <div class="row">
+        @foreach (var menu in Model)
+        {
+            <div class="col-md-4">
+                <div class="procard p-3 mb-2">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                            <div> <img src="/MenuImages/@menu.CoverImage" style="width:75px; height:75px" class="rounded-circle" /> </div>
+                            <div class="ms-2 c-details">
+                                <h5 class="mb-0 mb-1" style="color:brown">@menu.MenuName</h5>
+                                <h6 class="fs-6">Total Number of Sales : @orderRepo.TotalSalesOfTheMenu(menu.MenuID) </h6>
+                            </div>
+                        </div>
+                        <div class="badge"> <span>Menu</span> </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        }
+    </div>
+</div>

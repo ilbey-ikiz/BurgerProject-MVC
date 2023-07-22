@@ -1,0 +1,143 @@
+﻿@section Style{
+    <link rel="stylesheet" href="~/css/deneme.css" asp-append-version="true" />
+}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css" integrity="sha512-9YHSK59/rjvhtDcY/b+4rdnl0V4LPDWdkKceBl8ZLF5TB6745ml1AfluEU6dFWqwDw9lPvnauxFgpKvJqp7jiQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+<html>
+<body class="product_background">
+
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-xxlarge" onclick="w3_close()"> &times;</button>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetMenuList(),w3_close()">
+            <img src="/Backgrounditems/menu (1).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Menus
+        </a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(1),w3_close()">
+            <img src="/Backgrounditems/nugget (2).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Hamburgers
+        </a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(2),w3_close()"> <img src="/Backgrounditems/menu (2).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Potatoes</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(3),w3_close()">
+            <img src="/Backgrounditems/sauces (1).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Sauces
+        </a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(4),w3_close()">
+            <img src="/Backgrounditems/sauces (2).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Beverages
+        </a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(5),w3_close()">
+            <img src="/Backgrounditems/nugget (1).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Extras
+        </a>
+    </div>
+
+    <div id="main">
+
+        <div>
+            <button class="w3-button w3-opacity w3-xlarge text-white" onclick="w3_open()"id="openNav">&#9776;Menu </button>
+
+            <div class="container">
+                <div id="productList"></div>
+                <div id="menuList"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function w3_open() {
+            document.getElementById("main").style.marginLeft = "25%";
+            document.getElementById("mySidebar").style.width = "25%";
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("openNav").style.display = 'none';
+        }
+        function w3_close() {
+            document.getElementById("main").style.marginLeft = "0%";
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("openNav").style.display = "inline-block";
+        }
+    </script>
+
+</body>
+</html>
+
+<!-- Sidebar -->
+@*<body class="product_background">
+
+
+
+
+
+    <div class="w3-sidebar w3-bar-block" style="display:none;z-index:5" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-xxlarge" onclick="w3_close()"> &times;</button>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetMenuList(),w3_close()">
+            <img src="/Backgrounditems/menu (1).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Menus
+        </a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(1),w3_close()">
+            <img src="/Backgrounditems/nugget (2).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Hamburgers
+        </a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(2),w3_close()"> <img src="/Backgrounditems/menu (2).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Potatoes</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(3),w3_close()">
+            <img src="/Backgrounditems/sauces (1).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Sauces
+        </a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(4),w3_close()">
+            <img src="/Backgrounditems/sauces (2).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Beverages
+        </a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(5),w3_close()">
+            <img src="/Backgrounditems/nugget (1).png" class="pl-lg-4 pr-2 " style="width:40px; height:40px;" />Extras
+        </a>
+    </div>
+
+    <!-- Page Content -->
+    <div class="w3-overlay" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+    <div>
+        <button class="w3-button w3-white w3-xxlarge" onclick="w3_open()">&#9776; Menu</button>
+        <div class="container">
+            <div id="productList"></div>
+            <div id="menuList"></div>
+        </div>
+    </div>
+
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+    </script>
+
+</body>
+*@
+
+
+
+
+@*<body>
+        <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:15%">
+        <a href="#" class="w3-bar-item w3-button" onclick="GetMenuList()">Menus</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(1)">Hamburgers</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(2)">Potatoes</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(3)">Sauces</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(4)">Beverages</a>
+        <a href="#" class="w3-bar-item w3-button" onclick="GetProductList(5)">Extras</a>
+    </div>
+
+</body>*@
+
+
+@*@*<button onclick="GetMenuList()" class="btn btn-success">Menues</button>
+<button onclick="GetProductList(1)" class="btn btn-success">Hamburgers</button>
+<button onclick="GetProductList(2)" class="btn btn-success">Potatoes</button>
+<button onclick="GetProductList(3)" class="btn btn-success">Sauces</button>
+<button onclick="GetProductList(4)" class="btn btn-success">Beverages</button>
+<button onclick="GetProductList(5)" class="btn btn-success">Extras</button>*@
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/product.js"></script>
+

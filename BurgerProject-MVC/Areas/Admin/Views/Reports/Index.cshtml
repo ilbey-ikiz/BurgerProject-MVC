@@ -1,0 +1,90 @@
+﻿<style>
+
+
+    .procard {
+        border: 1px solid black;
+        background-color: antiquewhite;
+        border-radius: 10px
+    }
+
+    .c-details span {
+        font-weight: 300;
+        font-size: 13px
+    }
+
+    .icon {
+        width: 80px;
+        height: 80px;
+        background-color: #eee;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 39px
+    }
+
+    .badge span {
+        background-color: #fffbec;
+        width: 60px;
+        height: 25px;
+        padding-bottom: 3px;
+        border-radius: 5px;
+        display: flex;
+        color: #fed85d;
+        justify-content: center;
+        align-items: center
+    }
+
+    .progress {
+        height: 10px;
+        border-radius: 10px
+    }
+
+        .progress div {
+            background-color: red
+        }
+
+    .text1 {
+        font-size: 14px;
+        font-weight: 600
+    }
+
+    .text2 {
+        color: #a5aec0
+    }
+</style>
+
+
+@model (decimal today , decimal week , decimal month , decimal total )
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-danger">Shop Revenues</h1>
+        <hr />
+        <div class="fs-3">
+            Total Earned: $@Model.total
+        </div>
+        <div class="fs-3">
+            Today Earned: $@Model.today
+        </div >
+        <div class="fs-3">
+            Weekly Earned: $@Model.week
+        </div>
+        <div class="fs-3">
+            Monthly Earned: $@Model.month
+        </div>
+    </div>
+    <hr />
+    <h1 class="text-center mb-4 text-danger">Total Sales</h1>
+
+    <div class="text-center ">
+        <a class="btn btn-primary w-25" onclick="GetProductSaleReport()">Prodcuts</a>
+        <a class="btn btn-primary w-25" onclick="GetMenuSaleReport()">Menus</a>
+    </div>
+
+    <div id="totalNumberOfSales"></div>
+    <div id="totalNumberOfSales2"></div>
+
+
+</div>
+<script src="~/js/reports.js"></script>

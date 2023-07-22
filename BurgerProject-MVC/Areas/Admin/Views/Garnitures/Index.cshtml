@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BurgerProject_MVC_G4.Models.Entites.Garniture>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">Garnitures</h1>
+
+<div class="container w-50">
+    <p>
+        <a class="btn btn-success" asp-action="Create">Create New Garniture</a>
+    </p>
+    <table class="table table-bordered table-hover ">
+        <thead class="bg-dark">
+            <tr class="text-white text-center">
+                <th style="width:58%;">
+                    Garniture Name
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="text-center align-middle">
+                    <td>
+                        @item.GarnitureName
+                    </td>
+                    <td>
+                        <a class="btn btn-info w-25" asp-action="Edit" asp-route-id="@item.GarnitureID">Edit</a>
+                        <a class="btn btn-danger w-25" onclick="DeleteGarniture(@item.GarnitureID)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="~/js/admin.js"></script>

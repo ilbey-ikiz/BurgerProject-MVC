@@ -1,0 +1,95 @@
+﻿@model (AppUser user , string[] idList , decimal totalPrice)
+@*<div class="container mt-5">
+       <div class="card mb-3 " style="max-width: 1100px; height:600px; background-color: rgb(255, 255, 128);">
+       <div class="row no-gutters">
+       <div class="col-md-4">
+       <img src="/ProductsImages/checkoutImage.png" class="card-img" alt="...">
+       </div>
+       <div class="col-md-8">
+       <div class="card-body">
+       <h1 class="card-title text-center text-success">Total Price : $@Model.totalPrice</h1>
+       <h5 class="card-text text-center">Date : @DateTime.Now.ToLocalTime()</h5>
+       </div>
+       <form asp-action="OrderConfirm" asp-controller="Basket">
+       <div class="btn-group card-body d-flex">
+       <div class="justify-content-center" style="margin:auto;">
+       <input type="radio" class="btn-check " name="paymentMethod" id="option1" autocomplete="off" checked value="@BurgerProject_MVC_G4.Models.Enum.PaymentMethod.Cash" />
+       <label class="btn btn-outline-info mx-3" for="option1">Kapida Nakit</label>
+       <input type="radio" class="btn-check " name="paymentMethod" id="option2" autocomplete="off" value="@BurgerProject_MVC_G4.Models.Enum.PaymentMethod.Cash" />
+       <label class="btn btn-outline-success mx-3" for="option2">Kapida Kart</label>
+       </div>
+       </div>
+       @foreach (var id in Model.idList)
+       {
+       <input type="text" hidden="hidden" value="@id" name="idList" />
+       }
+       <input type="text" hidden="hidden" value="@Model.totalPrice" name="totalPrice">
+       <div class="row card-body">
+       <div class="col-sm-12">
+       <div class="form-group">
+       <label>Adresses</label>
+       <select class="selectpicker form-control" name="addressID">
+       @foreach (var address in Model.user.Addresses)
+       {
+       <option value="@address.AddressID">@address.AddressDescription</option>
+       }
+       </select>
+       </div>
+       </div>
+       </div>
+       <div class="form-outline card-body">
+       <label class="form-label" for="textAreaExample">Message</label>
+       <textarea class="form-control" id="textAreaExample" rows="4" name="userMessage"></textarea>
+       </div>
+       <div class="card-body text-center">
+       <input type="submit" class="btn btn-outline-success w-50" value="Confirm The Order">
+       </div>
+       </form>
+       </div>
+       </div>
+       </div>
+       </div>*@
+<link href="~/css/checkout.css" rel="stylesheet" />
+<main>
+
+    <div class="deneme">
+        <div class="leftside">
+            <img src="~/menuimages/5doublequartermenu.png" 
+                 class="product"
+                 alt="Shoes" />
+        </div>
+        <div class="rightside">
+            <form asp-action="OrderConfirm" >
+                @foreach (var id in Model.idList)
+                {
+                    <input type="text" hidden="hidden" value="@id" name="idList" />
+                }
+                <input type="text" hidden="hidden" value="@Model.totalPrice" name="totalPrice">
+                <h1>CheckOut</h1>
+                <h2>Payment Information</h2>
+                <p>Address</p>
+                <select class="selectpicker form-control" name="addressID">
+                @foreach (var address in Model.user.Addresses)
+                {
+                    <p>Adress</p>
+                        <option value="@address.AddressID">@address.AddressDescription</option>
+                }
+                </select>
+                <p>User Note</p>
+                <input type="text" class="inputbox" name="userMessage"   />
+
+                <p>Total Price:$@Model.totalPrice   Date:@DateTime.Now.ToLocalTime()</p>
+
+                <p>Card Type</p>
+                <select class="inputbox" name="paymentMethod" id="card_type" >
+                    <option value="@BurgerProject_MVC_G4.Models.Enum.PaymentMethod.Cash">Cash Payment at Home</option>
+                    <option value="@BurgerProject_MVC_G4.Models.Enum.PaymentMethod.CreditCart">Card Payment at Home</option>
+                </select>
+               
+                <p></p>
+                <button type="submit" class="button">CheckOut</button>
+            </form>
+        </div>
+    </div>
+</main>
+

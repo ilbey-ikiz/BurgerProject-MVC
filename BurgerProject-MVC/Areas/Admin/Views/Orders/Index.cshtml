@@ -1,0 +1,179 @@
+﻿@model (ICollection<Order> Orders , List<AppUser> Users) 
+
+<div class="container table-responsive py-5">
+    <h2 class="text-center mb-4">All Orders</h2>
+    <table class="table table-bordered table-hover">
+        <thead class=" bg-black text-white text-center">
+            <tr>
+                <th scope="col">Order No</th>
+                <th scope="col">Orderer</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        @{
+            int count = 0;
+            int user = -1;
+        }
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                user++;
+                count++;
+                string ModalProduct = "ModalProduct" + count;
+                <tr class="text-center">
+                    <th scope="row" style="width:15%;">CB-100345-@order.OrderID</th>
+                    <td>@Model.Users[user].Name @Model.Users[user].Surname</td>
+                    <td>@order.OrderDate</td>
+                    <td>$@order.TotalPrice</td>
+                    <td class="text-center">
+                        <a class="btn btn-success btn-sm " data-bs-toggle="modal" data-bs-target="#@ModalProduct">
+                             Order Details
+                        </a>
+                    </td>
+                </tr>
+
+
+                //modal
+
+                <div class="modal fade" id="@ModalProduct" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Order Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <section class="h-100 gradient-custom">
+                                <div class="container py-5 h-100">
+                                    <div class="row d-flex justify-content-center align-items-center h-100">
+                                        <div class="col-lg-10 col-xl-8 d-flex justifiy-content-center">
+
+
+                                            <div class="card" style="border-radius: 10px; ">
+
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
+                                                    </div>
+                                                    @foreach (var carts in order.Carts)
+                                                    {
+                                                        if (carts.UserMenu != null)
+                                                        {
+
+                                                            <div class="card shadow-0 border mb-4">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <img src="/MenuImages/@carts.Menu.CoverImage"
+                                                                                 class="img-fluid" alt="Phone">
+                                                                        </div>
+                                                                        <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                                                            <p class="text-muted mb-0">@carts.Menu.MenuName</p>
+                                                                        </div>
+
+                                                                        <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                                                            <p class="text-muted mb-0 small">Qty: @carts.Quantity</p>
+                                                                        </div>
+                                                                        <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                                                            <p class="text-muted mb-0 small">$@carts.UserMenu.Amount</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr class="mb-2" style="background-color: #e0e0e0; opacity: 1;">
+                                                                    <h6>Contents:</h6>
+                                                                    <div class=" d-flex align-items-center">
+                                                                        <div>
+                                                                            <ul>
+                                                                                @foreach (var item in carts.UserMenu.Products)
+                                                                                {
+                                                                                    <li style="float:left;" class="d-inline-block me-3">-@item.Product.ProductName</li>
+                                                                                }
+                                                                            </ul>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        if (carts.Products != null)
+                                                        {
+
+                                                            <div class="card shadow-0 border mb-4">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <img src="/ProductsImages/@carts.Products.CoverImage"
+                                                                                 class="img-fluid" alt="Phone">
+                                                                        </div>
+                                                                        <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                                                            <p class="text-muted mb-0">@carts.Products.ProductName</p>
+                                                                        </div>
+
+                                                                        <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                                                            <p class="text-muted mb-0 small">Qty: @carts.Quantity</p>
+                                                                        </div>
+                                                                        <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
+                                                                            <p class="text-muted mb-0 small">$@carts.Products.Price</p>
+                                                                        </div>
+                                                                    </div>
+                                              
+                                                                 
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                    <div class=" pt-2">
+                                                        <p class="fw-bold mb-0">Order Details</p>
+                                                    </div>
+
+                                                    <div class=" pt-2">
+                                                        <p class="text-muted mb-0">Order Address : @order.Address.AddressDescription</p>
+                                                    </div>
+                                                    <div class=" pt-2">
+                                                        <p class="text-muted mb-0"> Order Mail : @Model.Users[user].Email</p>
+                                                    </div>
+                                                    <div class=" pt-2">
+                                                        <p class="text-muted mb-0"> Payment Method : @order.PaymentMethod</p>
+                                                    </div>
+
+                                                    <div class="pt-2">
+                                                        <p class="text-muted mb-0">Order Date : @order.OrderDate</p>
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <p class="text-muted mb-0">Phone : @Model.Users[user].PhoneNumber</p>
+                                                    </div>
+
+                                                    <div class="pt-2">
+                                                        <p class="text-muted mb-0">Order Message : @order.UserMassage</p>
+                                                    </div>
+
+                                                </div>
+                                                <div class="card-footer border-0 px-4 py-5"
+                                                     style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                                                    <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
+                                                        Total
+                                                        paid: <span class="h2 mb-0 ms-2">$@order.TotalPrice</span>
+                                                    </h5>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            }
+        </tbody>
+    </table>
+</div>

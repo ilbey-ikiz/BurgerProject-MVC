@@ -1,0 +1,32 @@
+﻿
+
+<link href="~/css/ussersettings2.css" rel="stylesheet" />
+<main>
+
+    <div class="container light-style flex-grow-1 container-p-y">
+
+        <div class="card overflow-hidden">
+            <div class="row no-gutters row-bordered row-border-light">
+                <div class="col-md-3 pt-0" >
+                    <div class="list-group list-group-flush account-settings-links" >
+                        <a class="list-group-item list-group-item-action" onclick="GetUserInformation()" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; ">General</a>
+                        <a class="list-group-item list-group-item-action" onclick="GetUserInChangePassword()" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; " >Change password</a>
+                        <a class="list-group-item list-group-item-action" onclick="GetUserInChangeAddress()" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; " >Change Address</a>
+                        <a class="list-group-item list-group-item-action" onclick="GetUserInOrderHistory()" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; ">Order History</a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body " id="UserSetting" >
+                        @*partial vm gelicek *@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+
+</main>
+
+<script src="~/js/usersettings.js"></script>

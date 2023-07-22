@@ -1,0 +1,94 @@
+﻿@model Menu
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+    <h1 class="text-center">Create Menu</h1>
+    <hr />
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4 bg-light rounded">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mt-3">
+                    <label asp-for="MenuName" class="control-label"></label>
+                    <input asp-for="MenuName" class="form-control" />
+                    <span asp-validation-for="MenuName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SmallPrice" class="control-label"></label>
+                    <input asp-for="SmallPrice" class="form-control" />
+                    <span asp-validation-for="SmallPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MiddlePrice" class="control-label"></label>
+                    <input asp-for="MiddlePrice" class="form-control" />
+                    <span asp-validation-for="MiddlePrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BigPrice" class="control-label"></label>
+                    <input asp-for="BigPrice" class="form-control" />
+                    <span asp-validation-for="BigPrice" class="text-danger"></span>
+                </div>
+                @*  <div class="form-group">
+                <label asp-for="Menu.CoverImage" class="control-label"></label>
+                <input asp-for="Menu.CoverImage" class="form-control" />
+                <span asp-validation-for="Menu.CoverImage" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="CoverImage" class="control-label"></label>
+                    <input asp-for="CoverImage" class="form-control" type="hidden" value="empty.jpg" />
+                    <input class="form-control" type="file" name="ImageName" accept=".jpg,.png" />
+                    @*<span asp-validation-for="CoverImage" class="text-danger"></span>*@
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label class="control-label">Hamburgers</label>
+                    <select name="products" multiple class="form-control" asp-items="ViewBag.Hamburgers"></select>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label">Potatoes</label>
+                    <select name="products" multiple class="form-control" asp-items="ViewBag.Potatoes"></select>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label">Sauces</label>
+                    <select name="products" multiple class="form-control" asp-items="ViewBag.Sauces"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Beverages</label>
+                    <select name="products" multiple class="form-control" asp-items="ViewBag.Beverages"></select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Extras</label>
+                    <select name="products" multiple class="form-control" asp-items="ViewBag.Extras"></select>
+                </div>
+
+                <hr />
+                <div class="d-flex justify-content-between mt-2 mb-4">
+                    <div>
+                        <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+                    </div>
+                    <div>
+                        <input type="submit" value="Add Menu" class="btn btn-outline-success" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

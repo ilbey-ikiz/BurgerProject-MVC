@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BurgerProject_MVC_G4.Models.Entites.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">Products</h1>
+
+<div class="container">
+<p >
+    <a class="btn btn-success" asp-action="Create">Create New Product</a>
+</p>
+    <table class="table table-bordered table-hover ">
+        <thead class="bg-dark">
+            <tr class="text-white text-center">
+                <th style="width:15%;">
+                    Cover Image
+                </th>
+                <th style="width:20%">
+                    Product Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th style="width:15%">
+                    Category
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="text-center align-middle " >
+                    <td class="text-center">
+                        <img src="/ProductsImages/@item.CoverImage" width="80" height="80">
+                    </td>
+                    <td >
+                        @item.ProductName
+                    </td>
+                    <td>
+                       $@item.Price
+                    </td>
+                    <td>
+                        @item.Category.CategoryName
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-info w-25" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
+                        <a class="btn btn-danger w-25" onclick="DeleteProduct(@item.ProductID)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<script src="~/js/admin.js"></script>

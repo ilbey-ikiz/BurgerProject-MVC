@@ -1,0 +1,70 @@
+﻿@page
+@model RegisterModel
+<link href="~/css/register.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+
+<main>
+    <div class="container" >
+
+        <div class="register_background">
+            <video controls="controls" autoplay >
+                <source src="/menuimages/production_id_4139329%20(1440p)%20(1).mp4" type="video/mp4" />
+            </video>
+            <div class="register_img-container" style="margin-left:30px;">
+                <img src="/backgrounditems/welcome.png" alt="Photo" class="img-fluid" style="z-index:1;" />
+            </div>
+            <div class="signup__container" >
+                <div class="container__child col-3 col-sm-3 ms-5">
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-white "></div>
+                        <div class="form-floating  w-70">
+                            <input asp-for="Input.Name" placeholder="Name" class="form-control" aria-required="true" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; " />
+                            <label style="font-size:15px; font-family: 'Montserrat', sans-serif; color:black;  opacity: 0.6;" asp-for="Input.Name"></label>
+                            <span asp-validation-for="Input.Surname" class="text-white"></span>
+                        </div>
+                        <div class="form-floating w-70" >
+                            <input asp-for="Input.Surname" placeholder="Name" class="form-control" aria-required="true" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; " />
+                            <label style="font-size:15px; font-family: 'Montserrat', sans-serif; color:black;  opacity: 0.6;" asp-for="Input.Surname"></label>                          
+                            <span asp-validation-for="Input.Name" class="text-white"></span>
+                        </div>
+                        <div class="form-floating w-70">
+                            <input asp-for="Input.PhoneNumber" placeholder="Name" class="form-control" aria-required="true" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; " />
+                            <label style="font-size:15px; font-family: 'Montserrat', sans-serif; color:black;  opacity: 0.6;" asp-for="Input.PhoneNumber"></label>
+                            <span asp-validation-for="Input.PhoneNumber" class="text-white"></span>
+                        </div>
+                        <div class="form-floating w-70">
+                            <input asp-for="Input.Email" placeholder="Name" autocomplete="username" class="form-control" aria-required="true" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; " />
+                            <label style="font-size:15px; font-family: 'Montserrat', sans-serif; color:black;  opacity: 0.6;" asp-for="Input.Email"></label>
+                            <span asp-validation-for="Input.Email" class="text-white"></span>
+                        </div>
+                        <div class="form-floating w-70">
+                            <input asp-for="Input.Password" placeholder="Name" autocomplete="new-password" class="form-control" aria-required="true" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; " />
+                            <label style="font-size:15px; font-family: 'Montserrat', sans-serif; color:black;  opacity: 0.6;" asp-for="Input.Password"></label>
+                            <span asp-validation-for="Input.Password" class="text-white"></span>
+                        </div>
+                        <div class="form-floating w-70">
+                            <input asp-for="Input.ConfirmPassword" placeholder="Name" class="form-control" aria-required="true" style="height:50px; font-family: 'Montserrat', sans-serif; font-weight: bold; " />
+                            <label style="font-size:15px; font-family: 'Montserrat', sans-serif; color:black;  opacity: 0.6;" asp-for="Input.ConfirmPassword"></label>
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-white"></span>
+                        </div>
+                        <div class="form-floating w-70">
+                            <textarea placeholder="Address" style="height:55px; font-family: 'Montserrat', sans-serif; font-weight: bold; resize:none;" asp-for="Input.Address" class="form-control" autocomplete="address" aria-required="true"></textarea>
+                            <label style="font-size:15px; font-family: 'Montserrat', sans-serif; color:black;  opacity: 0.6;" asp-for="Input.Address"></label>
+                            <span asp-validation-for="Input.Address" class="text-white"></span>
+                        </div>
+                        <button id="registerSubmit" type="submit" class="w-50 btn btn-lg" >R E G I S T E R</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="footer">
+    </div>*@
+</main>
