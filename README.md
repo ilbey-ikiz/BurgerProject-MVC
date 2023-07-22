@@ -13,7 +13,7 @@ The system also incorporates an admin interface with special privileges. Admins 
 <div align="center">
 <h4>Website working video</h4>
 <a href="https://youtu.be/90h5cqSFVzo" target="_blank">
- <img src="/GitImages/youtube.png" alt="Watch the video" width="600" height="350"/>
+ <img src="GitImages/youtube.png" alt="Watch the video" width="600" height="350"/>
 </a>
 </div>
 
